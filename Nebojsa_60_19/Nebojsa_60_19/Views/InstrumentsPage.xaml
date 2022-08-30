@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Nebojsa_60_19.Views.InstrumentsPage"
+             Title="Instruments"
+             xmlns:vm="clr-namespace:Nebojsa_60_19.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:InstrumentsPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+            <StackLayout Padding="20">
+                <Entry Placeholder="Search" Text="{Binding Search}"/>
+                <Picker Title="Select type"
+                        ItemsSource="{Binding Types}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedType}">
+                </Picker>
+
+                <StackLayout Orientation="Horizontal"  IsVisible="{Binding IsVisible}">
+                    <StackLayout WidthRequest="100" IsVisible="{Binding IsVisible}">
+                        <Label Text="{Binding ResponseText}" TextColor="{Binding ResponseColor}"/>
+                        <Button  Text="Confirm" Command="{Binding HideCommand}" BackgroundColor="{Binding ResponseColor}" MinimumHeightRequest="20"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="No Instruments" IsVisible="{Binding NoInstruments}" HorizontalOptions="Center"/>
+                </StackLayout>
+
+                <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                             Command="{Binding RefreshCommand}">
+                    <CollectionView ItemsSource="{Binding Instruments}" x:Name="collectionView">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItem Text="Delete" 
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={x:Reference collectionView}, Path=BindingContext.DeleteCommand}"
+                                               CommandParameter="{Binding}"/>
+                                        <SwipeItem Text="Edit" 
+                                               BackgroundColor="YellowGreen"
+                                               Command="{Binding Source={x:Reference collectionView}, Path=BindingContext.EditCommand}"
+                                               CommandParameter="{Binding}"/>
+                                    </SwipeView.RightItems>
+                                    
+                                    <StackLayout Spacing="0" Padding="0,10,0,0">
+                                        <StackLayout>
+                                            <Label Text="{Binding Name}" FontAttributes ="Bold"/>
+                                        </StackLayout>
+
+                                        <StackLayout Padding="5,0,0,0">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="The year it first appeared:"/>
+                                                <Label Text="{Binding Year}" FontAttributes ="Italic"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="The country it first appeared:"/>
+                                                <Label Text="{Binding Country}" FontAttributes ="Italic"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Type of instrument:"/>
+                                                <Label Text="{Binding Type}" FontAttributes ="Italic"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Description:"/>
+                                                <Label Text="{Binding Description}" FontAttributes ="Italic"/>
+                                            </StackLayout>
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding AddInstrument}" Grid.Row="0" Grid.Column="0" Text="Add new instrument" />
+                <Button Command="{Binding AddType}" Grid.Row="0" Grid.Column="1" Text="Add new type"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

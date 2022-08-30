@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Nebojsa_60_19.Views.RegisterPage"
+             Title="Register"
+             xmlns:vm="clr-namespace:Nebojsa_60_19.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:RegisterPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="20,30,20,20" >
+            <Label Text="Please register" FontSize="Large" Margin="0,0,0,10"/>
+            <StackLayout Padding="10" Spacing="10">
+                
+                <StackLayout Spacing="0" >
+                    <Label Text="First Name:" FontSize="Medium" />
+                    <Entry Placeholder="Reyes" Text="{Binding FirstName}"/>
+                    <Label TextColor="Red" Text="{Binding FirstNameError}"  HorizontalOptions="Center"/>
+                </StackLayout>
+                
+                <StackLayout Spacing="0">
+                    <Label Text="Last Name:" FontSize="Medium" />
+                    <Entry Placeholder="Wilson" Text="{Binding LastName}"/>
+                    <Label TextColor="Red" Text="{Binding LastNameError}"  HorizontalOptions="Center"/>
+                </StackLayout>
+                
+                <StackLayout Spacing="0">
+                    <Label Text="Email:" FontSize="Medium" />
+                    <Entry Placeholder="reyes_wilson@gmail.com" Text="{Binding Email}"/>
+                    <Label TextColor="Red" Text="{Binding EmailError}"  HorizontalOptions="Center"/>
+                </StackLayout>
+                
+                <StackLayout Spacing="0">
+                    <Label Text="Username:" FontSize="Medium" />
+                    <Entry Placeholder="reyes_wilson" Text="{Binding Username}"/>
+                    <Label TextColor="Red" Text="{Binding UsernameError}" HorizontalOptions="Center"/>
+                </StackLayout>
+                
+                <StackLayout Spacing="0">
+                    <Label Text="Password:" FontSize="Medium" />
+                    <Entry IsPassword="true" Text="{Binding Password}" Placeholder="Password"/>
+                    <Label TextColor="Red" Text="{Binding PasswordError}"  HorizontalOptions="Center"/>
+                </StackLayout>
+
+            </StackLayout>
+            <Button Command="{Binding RegisterCommand}" Text="Register" IsEnabled="{Binding FormValid}" />
+            <Label TextColor="Red" Text="{Binding RegisterError}"  HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

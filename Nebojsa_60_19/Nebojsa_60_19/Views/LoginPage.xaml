@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Nebojsa_60_19.Views.LoginPage"
+             Shell.NavBarIsVisible="True"
+             Title="Login"
+             xmlns:vm="clr-namespace:Nebojsa_60_19.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:LoginPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="20,30,20,20" >
+            <Label Text="Please login" FontSize="Large" Margin="0,0,0,10"/>
+            <StackLayout Padding="10">
+                <Entry Placeholder="Email" Text="{Binding Email}"/>
+                <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+                <Button Command="{Binding LoginCommand}" Text="Login"/>
+                <Label TextColor="Red" Text="{Binding LoginError}" FontSize="Medium" HorizontalOptions="Center"/>
+            </StackLayout>
+            <Label TextColor="Blue" Text="Don't have an account? Register here!" FontSize="Large" Padding="0,15,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Nebojsa_60_19.Views.AddInstrumentPage"
+             Title="Add Instrument"
+             xmlns:vm="clr-namespace:Nebojsa_60_19.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:AddInstrumentPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <StackLayout Padding="20,30,20,20" >
+            <StackLayout Padding="10" Spacing="10">
+
+                <StackLayout Spacing="0" >
+                        <Label Text="Name:" FontSize="Medium" />
+                        <Entry Placeholder="Name of instrument" Text="{Binding Name}"/>
+                        <Label TextColor="Red" Text="{Binding NameError}"  HorizontalOptions="Center"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0">
+                        <Label Text="Year:" FontSize="Medium" />
+                        <Entry Placeholder="The year it first appeared" Text="{Binding Year}"/>
+                        <Label TextColor="Red" Text="{Binding YearError}"  HorizontalOptions="Center"/>
+                    </StackLayout>
+
+                    <StackLayout Spacing="0">
+                        <Label Text="Country:" FontSize="Medium" />
+                        <Entry Placeholder="The country it first appeared" Text="{Binding Country}"/>
+                        <Label TextColor="Red" Text="{Binding CountryError}"  HorizontalOptions="Center"/>
+                    </StackLayout>
+
+                <StackLayout Spacing="0">
+                    <Label Text="Type of instrument:" FontSize="Medium" />
+                    <Picker
+                        ItemsSource="{Binding Types}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedTypesOfInstruments}">
+                        <Picker.SelectedIndex>0</Picker.SelectedIndex>
+                    </Picker>
+                </StackLayout>
+
+                <StackLayout Spacing="0">
+                    <Label Text="Description:" FontSize="Medium" />
+                    <Editor AutoSize="TextChanges"  Text="{Binding Description}"/>
+                    <Label TextColor="Red" Text="{Binding DescriptionError}" HorizontalOptions="Center"/>
+                    </StackLayout>
+
+                </StackLayout>
+            <Button Command="{Binding AddInstrumentCommand}" Text="Add Instrument" IsEnabled="{Binding FormValid}" />
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

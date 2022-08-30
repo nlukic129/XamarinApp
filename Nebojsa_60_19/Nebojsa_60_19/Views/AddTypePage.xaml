@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Nebojsa_60_19.Views.AddTypePage"
+             Title="Add Type"
+             xmlns:vm="clr-namespace:Nebojsa_60_19.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:AddTypePageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Existing types: "/>
+            <Picker Title="Select type"
+                ItemsSource="{Binding Types}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedTypesOfInstruments}"
+            />
+            <Label Text="Add new type" Margin="0, 20, 0, 0"/>
+            <StackLayout Orientation="Horizontal">
+                <Entry Text="{Binding Name}" Placeholder="Type name" WidthRequest="230"/>
+                <Button  Command="{Binding AddTypeCommand}" Text="Add" IsEnabled="{Binding IsFormValid}"/>
+            </StackLayout>
+            <Label TextColor="Red" IsVisible="{Binding HasNameError}" Text="{Binding NameError}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

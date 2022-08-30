@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Nebojsa_60_19.Views.GenresPage"
+             Title="Genres"
+             xmlns:vm="clr-namespace:Nebojsa_60_19.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:GenresPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+            <StackLayout Padding="20">
+                <Entry Placeholder="Search" Text="{Binding SearchGenres}"/>
+
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsVisible}" >
+                    <StackLayout WidthRequest="100">
+                        <Label Text="{Binding ResponseText}" TextColor="{Binding ResponseColor}"/>
+                        <Button  Text="Confirm" Command="{Binding HideCommand}" BackgroundColor="{Binding ResponseColor}" MinimumHeightRequest="20"/>
+                    </StackLayout>
+                </StackLayout>
+                
+                <RefreshView IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding RefreshCommand}">
+                    <CollectionView ItemsSource="{Binding Genres}" x:Name="collectionView">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItem Text="Delete" 
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={x:Reference collectionView}, Path=BindingContext.DeleteCommand}"
+                                               CommandParameter="{Binding}"/>
+
+                                    </SwipeView.RightItems>
+
+                                    <StackLayout Spacing="0" Padding="0,0,0,10">
+
+                                        <StackLayout>
+                                            <Label Text="{Binding Name}" FontAttributes ="Bold"/>
+                                        </StackLayout>
+
+                                        <StackLayout Padding="5,0,0,0">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Songs count:"/>
+                                                <Label Text="{Binding SongsCount}" FontAttributes ="Italic"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Albums count:"/>
+                                                <Label Text="{Binding AlbumsCount}" FontAttributes ="Italic"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Description:"/>
+                                                <Label Text="{Binding Description}" FontAttributes ="Italic"/>
+                                            </StackLayout>
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
